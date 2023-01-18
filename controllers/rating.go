@@ -66,3 +66,35 @@ func GetRatingByComicId(c *gin.Context) {
 
 	c.JSON(http.StatusOK, result)
 }
+
+func UpdateRating(c *gin.Context) {
+	var rating structs.Rating
+	var errorRating []library.Error
+
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	err := c.ShouldBindJSON(&rating)
+	if err != nil {
+		panic(err)
+	}
+
+	rating.Id = int(id)
+
+	if rating.Rate < 1 {
+		result := library.Error{"Rating minimal 1"}.Validate()
+		errorRating = append(errorRating, result)
+	} else if rating.Rate > 5 {
+		result := library.Error{"Rating Maximal 5"}.Validate()
+		errorRating = append(errorRating, result)
+	}
+
+	err = repository.UpdateRating(database.DbConnection, rating)
+
+	if err != nil {
+		panic(err)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"result": "Success Update comic",
+	})
+}

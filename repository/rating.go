@@ -36,3 +36,11 @@ func GetRatingByComicId(db *sql.DB, id int) (err error, results []structs.AvgRat
 
 	return
 }
+
+func UpdateRating(db *sql.DB, rating structs.Rating) (err error) {
+	sql := `UPDATE rating SET comic_id = $1, user_id = $2, rate = $3, updated_at = NOW()::timestamp WHERE id = $4`
+
+	errs := db.QueryRow(sql, rating.ComicId, rating.UserId, rating.Rate, rating.Id)
+
+	return errs.Err()
+}

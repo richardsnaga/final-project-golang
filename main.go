@@ -53,6 +53,7 @@ func main() {
 	// rating
 	router.POST("/rating", controllers.CreateRating)
 	router.GET("/rating/:id/comic", controllers.GetRatingByComicId)
+	router.PUT("/rating/:id", controllers.UpdateRating)
 
 	router.Run("localhost:8090")
 }

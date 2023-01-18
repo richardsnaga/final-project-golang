@@ -12,6 +12,6 @@ type Rating struct {
 }
 
 type AvgRating struct {
-	ComicId int `json:"comic_id"`
-	AvgRate int `json:"avg_rate"`
+	ComicId int     `json:"comic_id"`
+	AvgRate float64 `json:"avg_rate"`
 }
