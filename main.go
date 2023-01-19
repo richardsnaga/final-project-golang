@@ -49,6 +49,8 @@ func main() {
 	router.POST("/comic", controllers.CreateComic)
 	router.PUT("/comic/:id", controllers.UpdateComic)
 	router.DELETE("/comic/:id", controllers.DeleteComic)
+	router.GET("/filter-comic", controllers.FilterComic)
+
 
 	// rating
 	router.POST("/rating", controllers.CreateRating)
@@ -66,6 +68,7 @@ func main() {
 	router.POST("/comments", controllers.CreateComment)
 	router.PUT("/comments/:id", controllers.UpdateComment)
 	router.DELETE("/comments/:id", controllers.DeleteComment)
+	router.GET("/comments/:id/comic", controllers.GetCommentByComicId)
 
 	router.Run("localhost:8090")
 }

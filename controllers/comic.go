@@ -110,3 +110,30 @@ func DeleteComic(c *gin.Context) {
 		"result": "Success Delete comic",
 	})
 }
+
+func FilterComic(c *gin.Context) {
+	var (
+		result gin.H
+	)
+
+	genre := c.Query("genre")
+	tipe := c.Query("type")
+	status, _ := strconv.ParseBool(c.Query("status"))
+	comic, err := repository.FilterComic(database.DbConnection,genre,tipe,status)
+
+	if err != nil {
+		result = gin.H{
+			"result": err,
+		}
+	} else {
+		result = gin.H{
+			"result": comic,
+			"genre": genre,
+			"tipe": tipe,
+			"status": status,
+
+		}
+	}
+
+	c.JSON(http.StatusOK, result)
+}
