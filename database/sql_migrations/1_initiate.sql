@@ -42,4 +42,13 @@ CREATE TABLE chapters (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE users (
+  id SERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(256), 
+  email VARCHAR(256), 
+  password VARCHAR(256),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- +migrate StatementEnd
