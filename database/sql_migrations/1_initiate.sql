@@ -28,6 +28,7 @@ CREATE TABLE comments (
   comic_id INT, 
   user_id INT, 
   reference_id INT,
+  comment VARCHAR(256),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -35,7 +36,7 @@ CREATE TABLE comments (
 CREATE TABLE chapters (
   id SERIAL NOT NULL PRIMARY KEY,
   comic_id INT, 
-  user_id INT, 
+  chapter_number INT, 
   image_url VARCHAR(256),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()

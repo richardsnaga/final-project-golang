@@ -55,5 +55,17 @@ func main() {
 	router.GET("/rating/:id/comic", controllers.GetRatingByComicId)
 	router.PUT("/rating/:id", controllers.UpdateRating)
 
+	// chapter
+	router.GET("/chapters", controllers.GetAllChapter)
+	router.POST("/chapters", controllers.CreateChapter)
+	router.PUT("/chapters/:id", controllers.UpdateChapter)
+	router.DELETE("/chapters/:id", controllers.DeleteChapter)
+
+	// comment
+	router.GET("/comments", controllers.GetAllComment)
+	router.POST("/comments", controllers.CreateComment)
+	router.PUT("/comments/:id", controllers.UpdateComment)
+	router.DELETE("/comments/:id", controllers.DeleteComment)
+
 	router.Run("localhost:8090")
 }
