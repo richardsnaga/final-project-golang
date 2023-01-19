@@ -53,3 +53,27 @@ func DeleteComment(db *sql.DB, comment structs.Comment) (err error) {
 
 	return errs.Err()
 }
+
+func GetCommentByComicId(db *sql.DB, id int) (err error, results []structs.Comment) {
+	sql := `SELECT * FROM comments WHERE comic_id = $1`
+
+	rows, err := db.Query(sql, id)
+	if err != nil {
+		panic(err)
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var comment = structs.Comment{}
+
+		err = rows.Scan(&comment.Id, &comment.ComicId, &comment.UserId, &comment.ReferenceId, &comment.Comment, &comment.CreatedAt, &comment.UpdatedAt)
+		if err != nil {
+			panic(err)
+		}
+
+		results = append(results, comment)
+	}
+
+	return
+}

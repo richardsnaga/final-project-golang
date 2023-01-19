@@ -107,3 +107,24 @@ func DeleteComment(c *gin.Context) {
 		"result": "Success Delete comment",
 	})
 }
+
+func GetCommentByComicId(c *gin.Context) {
+	var (
+		result gin.H
+	)
+
+	id, _ := strconv.Atoi(c.Param("id"))
+	comment, err := repository.GetCommentByComicId(database.DbConnection,id)
+
+	if err != nil {
+		result = gin.H{
+			"result": err,
+		}
+	} else {
+		result = gin.H{
+			"result": comment,
+		}
+	}
+
+	c.JSON(http.StatusOK, result)
+}
