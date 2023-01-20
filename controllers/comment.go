@@ -40,7 +40,6 @@ func CreateComment(c *gin.Context) {
 		panic(err)
 	}
 
-	
 	if len(errorComment) > 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"Status": false,
@@ -108,13 +107,13 @@ func DeleteComment(c *gin.Context) {
 	})
 }
 
-func GetCommentByComicId(c *gin.Context) {
+func GetCommentByChapterId(c *gin.Context) {
 	var (
 		result gin.H
 	)
 
 	id, _ := strconv.Atoi(c.Param("id"))
-	comment, err := repository.GetCommentByComicId(database.DbConnection,id)
+	comment, err := repository.GetCommentByChapterId(database.DbConnection, id)
 
 	if err != nil {
 		result = gin.H{

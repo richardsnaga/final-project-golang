@@ -88,7 +88,7 @@ func main() {
 
 	// comment
 	router.GET("/comments", controllers.GetAllComment)
-	router.GET("/comments/:id/comic", controllers.GetCommentByComicId)
+	router.GET("/comments/:id/chapter", controllers.GetCommentByChapterId)
 
 	// user
 	router.POST("/regis", controllers.Register)

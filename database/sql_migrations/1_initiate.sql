@@ -25,7 +25,7 @@ CREATE TABLE rating (
 
 CREATE TABLE comments (
   id SERIAL NOT NULL PRIMARY KEY,
-  comic_id INT, 
+  chapter_id INT, 
   user_id INT, 
   reference_id INT,
   comment VARCHAR(256),

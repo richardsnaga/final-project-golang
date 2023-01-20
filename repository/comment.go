@@ -18,7 +18,7 @@ func GetAllComment(db *sql.DB) (err error, results []structs.Comment) {
 	for rows.Next() {
 		var comment = structs.Comment{}
 
-		err = rows.Scan(&comment.Id, &comment.ComicId, &comment.UserId, &comment.ReferenceId, &comment.Comment, &comment.CreatedAt, &comment.UpdatedAt)
+		err = rows.Scan(&comment.Id, &comment.ChapterId, &comment.UserId, &comment.ReferenceId, &comment.Comment, &comment.CreatedAt, &comment.UpdatedAt)
 		if err != nil {
 			panic(err)
 		}
@@ -30,21 +30,20 @@ func GetAllComment(db *sql.DB) (err error, results []structs.Comment) {
 }
 
 func CreateComment(db *sql.DB, comment structs.Comment) (err error) {
-	sql := `INSERT INTO comments (comic_id, user_id, reference_id, comment) VALUES ($1,$2,$3,$4)`
+	sql := `INSERT INTO comments (chapter_id, user_id, reference_id, comment) VALUES ($1,$2,$3,$4)`
 
-	errs := db.QueryRow(sql, comment.ComicId, comment.UserId, comment.ReferenceId, comment.Comment)
+	errs := db.QueryRow(sql, comment.ChapterId, comment.UserId, comment.ReferenceId, comment.Comment)
 
 	return errs.Err()
 }
 
 func UpdateComment(db *sql.DB, comment structs.Comment) (err error) {
-	sql := `UPDATE comments SET comic_id = $1, user_id = $2, reference_id = $3, comment = $4, updated_at = NOW()::timestamp WHERE id = $5`
+	sql := `UPDATE comments SET chapter_id = $1, user_id = $2, reference_id = $3, comment = $4, updated_at = NOW()::timestamp WHERE id = $5`
 
-	errs := db.QueryRow(sql, comment.ComicId, comment.UserId, comment.ReferenceId, comment.Comment, comment.Id)
+	errs := db.QueryRow(sql, comment.ChapterId, comment.UserId, comment.ReferenceId, comment.Comment, comment.Id)
 
 	return errs.Err()
 }
-
 
 func DeleteComment(db *sql.DB, comment structs.Comment) (err error) {
 	sql := `DELETE FROM comments WHERE id = $1`
@@ -54,8 +53,8 @@ func DeleteComment(db *sql.DB, comment structs.Comment) (err error) {
 	return errs.Err()
 }
 
-func GetCommentByComicId(db *sql.DB, id int) (err error, results []structs.Comment) {
-	sql := `SELECT * FROM comments WHERE comic_id = $1`
+func GetCommentByChapterId(db *sql.DB, id int) (err error, results []structs.Comment) {
+	sql := `SELECT * FROM comments WHERE chapter_id = $1`
 
 	rows, err := db.Query(sql, id)
 	if err != nil {
@@ -67,7 +66,7 @@ func GetCommentByComicId(db *sql.DB, id int) (err error, results []structs.Comme
 	for rows.Next() {
 		var comment = structs.Comment{}
 
-		err = rows.Scan(&comment.Id, &comment.ComicId, &comment.UserId, &comment.ReferenceId, &comment.Comment, &comment.CreatedAt, &comment.UpdatedAt)
+		err = rows.Scan(&comment.Id, &comment.ChapterId, &comment.UserId, &comment.ReferenceId, &comment.Comment, &comment.CreatedAt, &comment.UpdatedAt)
 		if err != nil {
 			panic(err)
 		}
