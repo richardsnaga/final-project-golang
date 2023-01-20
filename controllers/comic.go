@@ -128,12 +128,10 @@ func FilterComic(c *gin.Context) {
 	} else {
 		result = gin.H{
 			"result": comic,
-			"genre": genre,
-			"tipe": tipe,
-			"status": status,
 
 		}
 	}
 
 	c.JSON(http.StatusOK, result)
 }
+
